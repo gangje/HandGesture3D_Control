@@ -1,0 +1,18 @@
+# Python
+__pycache__/
+*.pyc
+venv/
+
+# Unity
+gesture_unity/[Ll]ibrary/
+gesture_unity/[Tt]emp/
+gesture_unity/[Bb]uild/
+gesture_unity/[Bb]uilds/
+gesture_unity/[Ll]ogs/
+gesture_unity/UserSettings/
+
+*.csproj
+*.sln
+*.user
+*.userprefs
+*.slnx
