@@ -21,22 +21,43 @@ This project integrates MediaPipe Hands with Unity to enable real-time interacti
 
 ## Tech Stack
 
-- Unity  
-- C#  
-- Python  
-- OpenCV  
-- MediaPipe  
-- Socket Communication  
+- Unity
+- C#
+- Python
+- OpenCV
+- MediaPipe
+- Socket Communication
 
 ## Project Structure
 
+```txt
 gesture_project/
 ├─ gesture_unity/
 ├─ gesture_python/
 ├─ README.md
 └─ .gitignore
+```
 
-# HandGesture3D_Control 설명
+## How to Run
+
+### 1. Run the Python Server
+
+```bash
+cd gesture_python
+python main.py
+```
+
+### 2. Run Unity
+
+- Open the `gesture_unity` folder in Unity Hub.
+- Run the scene by clicking the Play button.
+
+※ The Python server and Unity can be started in any order, but both must be running for the system to function properly.
+
+---
+
+## Korean Description
+
 MediaPipe Hands와 Unity를 연동하여 손 제스처로 3D 오브젝트를 이동, 크기 조절, 회전할 수 있는 인터랙션 프로젝트입니다.
 
 ## 주요 기능: 손 제스처 - 동작 매칭
@@ -73,19 +94,20 @@ gesture_project/
 ├─ gesture_python/
 ├─ README.md
 └─ .gitignore
-
+```
 
 ## 실행 방법
 
-1. Python 서버 실행
+### 1. Python 서버 실행
 
 ```bash
 cd gesture_python
 python main.py
+```
 
+### 2. Unity 실행
 
-2. Unity 실행
-gesture_unity 폴더를 Unity Hub에서 열기
-Scene 실행 (Play 버튼 클릭)
+- `gesture_unity` 폴더를 Unity Hub에서 엽니다.
+- Scene을 실행합니다. Play 버튼을 클릭하면 됩니다.
 
 ※ Python 서버와 Unity는 실행 순서에 관계없이 실행할 수 있으며, 두 프로그램이 모두 실행되어야 정상 동작합니다.
