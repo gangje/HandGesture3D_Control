@@ -4,18 +4,20 @@ public class GestureRotateController : MonoBehaviour
 {
     public GestureReceiver receiver;
 
-    public float rotateScale = 360f;
+    public float rotationSensitivity = 200f;
     public float smoothSpeed = 12f;
+    public float rotateDeadZone = 0.01f;
 
-    Quaternion targetRotation;
-    float lastAngle = 0f;
+    bool isRotating = false;
+
+    Vector2 openHandStartPos;
+    Quaternion objectStartRotation;
 
     Renderer objectRenderer;
     Color originalColor;
 
     void Start()
     {
-        targetRotation = transform.rotation;
         objectRenderer = GetComponent<Renderer>();
 
         if (objectRenderer != null)
@@ -28,39 +30,62 @@ public class GestureRotateController : MonoBehaviour
 
         var data = receiver.LatestData;
 
+        // rotate 제스처가 아니면 회전 종료
         if (data.gesture != "rotate")
         {
+            isRotating = false;
+            SetColor(originalColor);
             return;
         }
 
-        // Rotate 모드: 초록
+        // Rotate 모드: 초록색
         SetColor(Color.green);
 
-        // 두 손의 좌표로부터 각도 계산
-        Vector2 hand1 = new Vector2(data.x, data.y);
-        Vector2 hand2 = new Vector2(data.x2, data.y2);
+        // 펼친 손의 현재 좌표
+        Vector2 currentOpenPos = new Vector2(data.x, data.y);
 
-        Vector2 delta = hand2 - hand1;
-        float angle = Mathf.Atan2(delta.y, delta.x) * Mathf.Rad2Deg;
+        // 회전 시작 시점 저장
+        if (!isRotating)
+        {
+            isRotating = true;
+            openHandStartPos = currentOpenPos;
+            objectStartRotation = transform.rotation;
+        }
 
-        // 각도 차이 계산
-        float angleDelta = angle - lastAngle;
+        // 시작 위치로부터 손이 얼마나 움직였는지
+        Vector2 delta = currentOpenPos - openHandStartPos;
 
-        // 180도 이상 차이가 나면 짧은 방향으로 계산
-        if (angleDelta > 180f) angleDelta -= 360f;
-        if (angleDelta < -180f) angleDelta += 360f;
+        // 너무 작은 움직임은 무시
+        if (Mathf.Abs(delta.x) < rotateDeadZone && Mathf.Abs(delta.y) < rotateDeadZone)
+            return;
 
-        // Z축 회전 적용
-        targetRotation *= Quaternion.AngleAxis(angleDelta * rotateScale, Vector3.forward);
+        Quaternion targetRotation;
 
-        // 부드러운 회전
-        transform.rotation = Quaternion.Lerp(
+        // 좌우 움직임이 더 크면: 전역 Y축 기준 회전
+        if (Mathf.Abs(delta.x) > Mathf.Abs(delta.y))
+        {
+            float yaw = -delta.x * rotationSensitivity;
+
+            targetRotation =
+                Quaternion.AngleAxis(yaw, Vector3.up) *
+                objectStartRotation;
+        }
+        // 위아래 움직임이 더 크면: 전역 X축 기준 회전
+        else
+        {
+            float pitch = -delta.y * rotationSensitivity;
+
+            targetRotation =
+                Quaternion.AngleAxis(pitch, Vector3.right) *
+                objectStartRotation;
+        }
+
+        // 부드럽게 회전
+        transform.rotation = Quaternion.Slerp(
             transform.rotation,
             targetRotation,
             Time.deltaTime * smoothSpeed
         );
-
-        lastAngle = angle;
     }
 
     void SetColor(Color color)

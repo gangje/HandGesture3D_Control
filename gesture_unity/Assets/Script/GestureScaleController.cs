@@ -23,14 +23,7 @@ public class GestureScaleController : MonoBehaviour
         objectRenderer = GetComponent<Renderer>();
 
         if (objectRenderer != null)
-        {
             originalColor = objectRenderer.material.color;
-            Debug.Log("GestureScaleController: Renderer found, original color = " + originalColor);
-        }
-        else
-        {
-            Debug.Log("GestureScaleController: Renderer NOT found!");
-        }   
     }
 
     void Update()
@@ -38,13 +31,12 @@ public class GestureScaleController : MonoBehaviour
         if (receiver == null || receiver.LatestData == null) return;
 
         var data = receiver.LatestData;
-        
-        Debug.Log("Scale Controller - Gesture: " + data.gesture + ", Distance: " + data.distance);
 
         if (data.gesture != "scale")
         {
             isScaling = false;
-            SetColor(originalColor);
+            if (data.gesture == "none" || data.gesture == "open")
+                SetColor(originalColor);
             return;
         }
 
@@ -75,13 +67,6 @@ public class GestureScaleController : MonoBehaviour
     void SetColor(Color color)
     {
         if (objectRenderer != null)
-        {
             objectRenderer.material.color = color;
-            Debug.Log("SetColor called: " + color + " - Renderer materials count: " + objectRenderer.materials.Length);
-        }
-        else
-        {
-            Debug.Log("SetColor: objectRenderer is NULL!");
-        }
     }
 }

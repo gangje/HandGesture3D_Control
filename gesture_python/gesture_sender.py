@@ -100,36 +100,54 @@ with mp_hands.Hands(
                     hand2,
                     mp_hands.HAND_CONNECTIONS
                 )
-                
+
                 hand2_fist = is_fist(hand2)
-                
-                # 주먹을 쥐었으면 주먹 중심, 아니면 손목 좌표 사용
+
+                # 손 위치 계산 (주먹이면 주먹 중심, 아니면 손목)
                 if hand2_fist:
-                    x2, y2 = get_fist_center(hand2)
+                    hand2_x, hand2_y = get_fist_center(hand2)
                 else:
                     wrist2 = hand2.landmark[0]
-                    x2 = wrist2.x
-                    y2 = wrist2.y
+                    hand2_x = wrist2.x
+                    hand2_y = wrist2.y
 
-                # 두 손의 중심 사이의 거리 계산
-                distance = math.sqrt((x2 - x) ** 2 + (y2 - y) ** 2)
-
-                # 두 손 모드: 둘 다 주먹이면 scale(확대축소), 둘 다 펼쳤으면 rotate(회전)
+                # 두 손이 모두 주먹인 경우: 스케일 모드
                 if hand1_fist and hand2_fist:
                     gesture = "scale"
+                    x, y = get_fist_center(hand1)
+                    x2, y2 = hand2_x, hand2_y
+                    distance = math.sqrt((x2 - x) ** 2 + (y2 - y) ** 2)
                     print(f"[GESTURE] Both fists - SCALE")
-                elif not hand1_fist and not hand2_fist:
+
+                # 한 손 주먹 + 한 손 펼침인 경우: 회전 모드
+                elif hand1_fist != hand2_fist:
                     gesture = "rotate"
-                    print(f"[GESTURE] Both open - ROTATE")
+                    # 펼친 손을 x, y로 설정
+                    if hand1_fist:
+                        # hand1 is fist, hand2 is open
+                        x, y = hand2_x, hand2_y
+                        x2, y2 = get_fist_center(hand1)
+                    else:
+                        # hand1 is open, hand2 is fist
+                        x, y = x, y  # hand1 open coords already in x, y
+                        x2, y2 = hand2_x, hand2_y
+                    distance = 0.0
+                    print(f"[GESTURE] Mixed fist + open - ROTATE")
+
+                # 둘 다 펼친 경우: 없음
                 else:
                     gesture = "none"
-                    print(f"[GESTURE] Mixed - NONE (hand1_fist={hand1_fist}, hand2_fist={hand2_fist})")
+                    distance = 0.0
+                    print(f"[GESTURE] Both open - NONE")
+                
             else:
                 # 한 손 모드: fist/open
                 if hand1_fist:
                     gesture = "fist"
+                    print(f"[GESTURE] Single fist - MOVE")
                 else:
                     gesture = "open"
+                    print(f"[GESTURE] Single open - NONE")
 
             data = {
                 "gesture": gesture,

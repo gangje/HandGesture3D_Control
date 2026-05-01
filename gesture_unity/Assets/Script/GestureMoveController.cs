@@ -35,6 +35,8 @@ public class GestureMoveController : MonoBehaviour
         if (data.gesture != "fist")
         {
             isHolding = false;
+            if (data.gesture == "none" || data.gesture == "open")
+                SetColor(originalColor);
             return;
         }
 
