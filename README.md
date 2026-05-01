@@ -2,6 +2,8 @@
 
 This project integrates MediaPipe Hands with Unity to enable real-time interaction with a 3D object using hand gestures, including movement, scaling, and rotation.
 
+---
+
 ## Main Features: Gesture-to-Action Mapping
 
 ### 1. One-Hand Fist Gesture: Object Move Mode (Red)
@@ -19,6 +21,8 @@ This project integrates MediaPipe Hands with Unity to enable real-time interacti
 - Moving the open hand up and down rotates the object around the horizontal axis (screen-based).
 - Moving the open hand left and right rotates the object around the vertical axis (screen-based).
 
+---
+
 ## Tech Stack
 
 - Unity
@@ -27,6 +31,8 @@ This project integrates MediaPipe Hands with Unity to enable real-time interacti
 - OpenCV
 - MediaPipe
 - Socket Communication
+
+---
 
 ## Project Structure
 
@@ -38,19 +44,21 @@ gesture_project/
 └─ .gitignore
 ```
 
+---
+
 ## How to Run
 
 ### 1. Run the Python Server
 
 ```bash
 cd gesture_python
-python main.py
+python gesture_sender.py
 ```
 
 ### 2. Run Unity
 
-- Open the `gesture_unity` folder in Unity Hub.
-- Run the scene by clicking the Play button.
+- Open the `gesture_unity` folder in Unity Hub
+- Run the scene (click the Play button)
 
 ※ The Python server and Unity can be started in any order, but both must be running for the system to function properly.
 
@@ -59,6 +67,8 @@ python main.py
 ## Korean Description
 
 MediaPipe Hands와 Unity를 연동하여 손 제스처로 3D 오브젝트를 이동, 크기 조절, 회전할 수 있는 인터랙션 프로젝트입니다.
+
+---
 
 ## 주요 기능: 손 제스처 - 동작 매칭
 
@@ -77,6 +87,8 @@ MediaPipe Hands와 Unity를 연동하여 손 제스처로 3D 오브젝트를 이
 - 펼친 손을 상하로 움직이면 오브젝트가 화면 기준 수평축을 중심으로 회전합니다.
 - 펼친 손을 좌우로 움직이면 오브젝트가 화면 기준 수직축을 중심으로 회전합니다.
 
+---
+
 ## 기술 스택
 
 - Unity
@@ -86,15 +98,7 @@ MediaPipe Hands와 Unity를 연동하여 손 제스처로 3D 오브젝트를 이
 - MediaPipe
 - Socket 통신
 
-## 프로젝트 구조
-
-```txt
-gesture_project/
-├─ gesture_unity/
-├─ gesture_python/
-├─ README.md
-└─ .gitignore
-```
+---
 
 ## 실행 방법
 
@@ -102,12 +106,12 @@ gesture_project/
 
 ```bash
 cd gesture_python
-python main.py
+python gesture_sender.py
 ```
 
 ### 2. Unity 실행
 
-- `gesture_unity` 폴더를 Unity Hub에서 엽니다.
-- Scene을 실행합니다. Play 버튼을 클릭하면 됩니다.
+- `gesture_unity` 폴더를 Unity Hub에서 엽니다
+- Scene을 실행합니다 (Play 버튼 클릭)
 
 ※ Python 서버와 Unity는 실행 순서에 관계없이 실행할 수 있으며, 두 프로그램이 모두 실행되어야 정상 동작합니다.

@@ -34,7 +34,8 @@ public class GestureRotateController : MonoBehaviour
         if (data.gesture != "rotate")
         {
             isRotating = false;
-            SetColor(originalColor);
+            if (data.gesture == "none" || data.gesture == "open")
+                SetColor(originalColor);
             return;
         }
 
