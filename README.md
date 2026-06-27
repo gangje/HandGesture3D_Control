@@ -28,6 +28,7 @@ This project integrates MediaPipe Hands with Unity to enable real-time interacti
   </tr>
 </table>
 
+Full demo video: [Watch on YouTube](https://youtu.be/l8kLHrUHBoQ)
 
 ---
 
