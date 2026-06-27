@@ -1,9 +1,24 @@
 # HandGesture3D_Control
-<img width="800" height="310" alt="move" src="https://github.com/user-attachments/assets/7eccd0c9-fdb7-4b82-b435-bc13698db8e8" />
-<img width="800" height="310" alt="scale" src="https://github.com/user-attachments/assets/a810e61e-7958-44cf-a914-3270b471ef35" />
-<img width="800" height="310" alt="rotation" src="https://github.com/user-attachments/assets/b413371f-e95f-4d6a-a041-140b594dea9c" />
-
 This project integrates MediaPipe Hands with Unity to enable real-time interaction with a 3D object using hand gestures, including movement, scaling, and rotation.
+
+<table>
+  <tr>
+    <td align="center"><b>Move Mode</b></td>
+    <td align="center"><b>Scale Mode</b></td>
+    <td align="center"><b>Rotate Mode</b></td>
+  </tr>
+  <tr>
+    <td>
+      <img width="260" alt="move" src="https://github.com/user-attachments/assets/7eccd0c9-fdb7-4b82-b435-bc13698db8e8" />
+    </td>
+    <td>
+      <img width="260" alt="scale" src="https://github.com/user-attachments/assets/a810e61e-7958-44cf-a914-3270b471ef35" />
+    </td>
+    <td>
+      <img width="260" alt="rotation" src="https://github.com/user-attachments/assets/b413371f-e95f-4d6a-a041-140b594dea9c" />
+    </td>
+  </tr>
+</table>
 
 ---
 
